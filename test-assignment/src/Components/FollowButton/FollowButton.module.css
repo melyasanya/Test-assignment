@@ -1,0 +1,16 @@
+.followBtn {
+  width: 196px;
+  padding: 14px 28px;
+  border-radius: 10.311px;
+  background: #ebd8ff;
+  box-shadow: 0px 3.4369285106658936px 3.4369285106658936px 0px
+    rgba(0, 0, 0, 0.25);
+}
+.followBtnText {
+  color: rgba(55, 55, 55, 1);
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-transform: uppercase;
+}

@@ -1,0 +1,20 @@
+.bottomLine {
+  display: block;
+  width: 380px;
+  height: 8px;
+  background: #ebd8ff;
+  box-shadow: 0px 3.4369285106658936px 2.5776965618133545px 0px #fbf8ff inset,
+    0px 3.4369285106658936px 3.4369285106658936px 0px rgba(0, 0, 0, 0.06),
+    0px -1.7184642553329468px 3.4369285106658936px 0px #ae7be3 inset;
+}
+.avatarBorder {
+  width: 80px;
+  height: 80px;
+  transform: translate(150px, -32px);
+  border-radius: 62px;
+  background: url(../../images/Hansel.png),
+    url(../../images/background_avatar.png);
+  background-repeat: no-repeat, no-repeat;
+  background-size: auto, 90%;
+  background-position: right 9px bottom 9px, right 50% bottom 50%;
+}
