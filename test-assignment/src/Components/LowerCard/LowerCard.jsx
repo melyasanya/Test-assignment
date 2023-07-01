@@ -1,13 +1,18 @@
-import { FollowButton } from "../FollowButton/FollowButton";
 import css from "./LowerCard.module.css";
+import PropTypes from "prop-types";
 
-export const LowerCard = () => {
+export const LowerCard = ({ tweets, follower }) => {
   return (
-    <div className={css.lowerCard}>
-      {/* <img src="" alt="" className={css.lowerCardImage} /> */}
-      <p className={css.lowerCardTweets}>777 tweets</p>
-      <p className={css.lowerCardFollowers}>100,500 followers</p>
-      <FollowButton />
-    </div>
+    <>
+      <p className={css.lowerCardTweets}>{tweets} tweets</p>
+      <p className={css.lowerCardFollowers}>
+        {follower.toLocaleString("en-US")} followers
+      </p>
+    </>
   );
+};
+
+LowerCard.propTypes = {
+  tweets: PropTypes.number,
+  follower: PropTypes.number,
 };
