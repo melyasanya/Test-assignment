@@ -1,17 +1,9 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  getFollowingIds,
-  getNeedToChange,
-  getUsers,
-} from "../../redux/selectors";
-import { changeUser } from "../../services/operations";
+import { useSelector } from "react-redux";
+import { getFollowingIds } from "../../redux/selectors";
+import PropTypes from "prop-types";
 import css from "./FollowButton.module.css";
 
-export const FollowButton = ({ handleFollowClick, id, active }) => {
-  // const { users } = useSelector(getUsers);
-  // const dispatch = useDispatch();
-  // const change = useSelector(getNeedToChange);
+export const FollowButton = ({ handleFollowClick, id }) => {
   const followings = useSelector(getFollowingIds);
 
   const follow = followings.includes(id);
@@ -27,4 +19,9 @@ export const FollowButton = ({ handleFollowClick, id, active }) => {
       </span>
     </button>
   );
+};
+
+FollowButton.propTypes = {
+  handleFollowClick: PropTypes.func,
+  id: PropTypes.string,
 };

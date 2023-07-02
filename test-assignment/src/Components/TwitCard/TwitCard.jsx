@@ -2,42 +2,38 @@ import { LowerCard } from "../LowerCard/LowerCard";
 import { UpperCard } from "../UpperCard/UpperCard";
 import css from "./TwitCard.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getFollowingIds,
-  getNeedToChange,
-  getUsers,
-} from "../../redux/selectors";
+import { getNeedToChange, getUsers } from "../../redux/selectors";
 import { FollowButton } from "../FollowButton/FollowButton";
 
-import { changeUser } from "../../services/operations";
+import { changeUser, fetchUsers } from "../../services/operations";
 import { changeUserFollowers } from "../../redux/users/usersSlice";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 export const TwitCard = () => {
-  const [isActive, setIsActive] = useState(false);
   const [toChangeId, setToChangeId] = useState(0);
   const { users } = useSelector(getUsers);
   const dispatch = useDispatch();
   const change = useSelector(getNeedToChange);
-  const count = useRef(null);
-  //
+  const countForFollow = useRef(null);
+  const firstUpdate = useRef(true);
 
-  const handleFollowClick = (id, e) => {
+  useLayoutEffect(() => {
+    if (firstUpdate.current) {
+      dispatch(fetchUsers());
+      firstUpdate.current = false;
+      return;
+    }
+  });
+
+  const handleFollowClick = (id) => {
     dispatch(changeUserFollowers(id));
     setToChangeId(id);
-    count.current = 1;
-    // setIsActive(true);
-    console.log(e.currentTarget.id);
-    console.log(id);
-    // if (e.currentTarget.id === id) {
-    //   const btn = document.querySelector(`button[data-id = '${id}']`);
-    //   console.log(btn);
-    //   btn.classList.add("active");
-    // }
+    countForFollow.current = 1;
   };
   useEffect(() => {
-    count.current && dispatch(changeUser({ data: change, id: toChangeId }));
-  }, [change]);
+    countForFollow.current &&
+      dispatch(changeUser({ data: change, id: toChangeId }));
+  }, [change, dispatch, toChangeId]);
 
   return (
     <ul className={css.twitCardList}>
@@ -59,7 +55,6 @@ export const TwitCard = () => {
               <FollowButton
                 handleFollowClick={handleFollowClick}
                 id={user.id}
-                active={isActive}
               />
             </div>
           </li>

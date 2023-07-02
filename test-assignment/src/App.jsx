@@ -10,7 +10,7 @@ function App() {
   const { users } = useSelector(getUsers);
 
   const handleClick = () => {
-    dispatch(fetchUsers());
+    console.log("hi");
   };
   const handleLoadMore = () => {
     axiosLink.defaults.params.page += 1;
@@ -19,7 +19,7 @@ function App() {
 
   return (
     <div className={css.container}>
-      <button onClick={() => handleClick()}>Click me</button>
+      <button onClick={() => handleClick()}>Back to home page</button>
       {users && <TwitCard />}
       {users.length % axiosLink.defaults.params.page === 0 && (
         <button onClick={handleLoadMore}>Load More</button>
