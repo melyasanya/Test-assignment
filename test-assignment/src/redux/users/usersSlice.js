@@ -7,6 +7,7 @@ const initialState = {
   isLoading: false,
   error: null,
   pageNumber: 1,
+  needToChangeUser: {},
 };
 
 const handlePending = (state) => {
@@ -19,10 +20,11 @@ const handleFetchFulfilled = (state, action) => {
   state.users = [...state.users, ...action.payload];
 };
 
-const handleChangeFulfilled = (state, action) => {
+const handleChangeFulfilled = (state) => {
   state.isLoading = false;
   state.error = null;
-  state.users = action.payload;
+
+  // state.users = action.payload;
 };
 
 const handleRejected = (state, action) => {
@@ -33,7 +35,32 @@ const handleRejected = (state, action) => {
 const usersSlice = createSlice({
   name: "users",
   initialState,
-  reducers: {},
+  reducers: {
+    changeUserFollowers(state, action) {
+      if (state.followingId.includes(action.payload)) {
+        const indexToDelete = state.followingId.findIndex(
+          (el) => el === action.payload
+        );
+        state.followingId.splice(indexToDelete, 1);
+        state.users.map((user) => {
+          if (user.id === action.payload) {
+            user.follower -= 1;
+          }
+        });
+      } else {
+        state.followingId.push(action.payload);
+        state.users.map((user) => {
+          if (user.id === action.payload) {
+            user.follower += 1;
+          }
+        });
+      }
+
+      state.needToChangeUser = state.users.find(
+        (user) => user.id === action.payload
+      );
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchUsers.pending, handlePending);
     builder.addCase(fetchUsers.fulfilled, handleFetchFulfilled);
@@ -45,3 +72,4 @@ const usersSlice = createSlice({
 });
 
 export const usersReducer = usersSlice.reducer;
+export const { changeUserFollowers } = usersSlice.actions;

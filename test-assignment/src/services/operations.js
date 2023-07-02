@@ -10,6 +10,10 @@ export const axiosLink = axios.create({
   },
 });
 
+const axiosLinkWithoutParams = axios.create({
+  baseURL: "https://64a03dc6ed3c41bdd7a720f2.mockapi.io",
+});
+
 export const fetchUsers = createAsyncThunk(
   "users/fetchUsers",
   async (_, thunkApi) => {
@@ -24,9 +28,9 @@ export const fetchUsers = createAsyncThunk(
 
 export const changeUser = createAsyncThunk(
   "users/changeUser",
-  async (user, thunkAPI) => {
+  async ({ data, id }, thunkAPI) => {
     try {
-      const response = await axiosLink.post("/users", user);
+      const response = await axiosLinkWithoutParams.put(`users/${id}`, data);
       return response.data;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);

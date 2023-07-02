@@ -14,3 +14,6 @@
   line-height: normal;
   text-transform: uppercase;
 }
+.active {
+  background: #5cd3a8;
+}
