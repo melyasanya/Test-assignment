@@ -60,6 +60,9 @@ const usersSlice = createSlice({
         (user) => user.id === action.payload
       );
     },
+    emptyUsers(state) {
+      state.users = [];
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchUsers.pending, handlePending);
@@ -72,4 +75,4 @@ const usersSlice = createSlice({
 });
 
 export const usersReducer = usersSlice.reducer;
-export const { changeUserFollowers } = usersSlice.actions;
+export const { changeUserFollowers, emptyUsers } = usersSlice.actions;

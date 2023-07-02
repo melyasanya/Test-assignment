@@ -1,30 +1,14 @@
-import { useDispatch, useSelector } from "react-redux";
-import css from "./App.module.css";
-import { TwitCard } from "./Components/TwitCard/TwitCard";
-import { getUsers } from "./redux/selectors";
-
-import { axiosLink, fetchUsers } from "./services/operations";
+import { Navigate, Route, Routes } from "react-router-dom";
+import { Home } from "./pages/Home/Home";
+import { Tweets } from "./pages/Tweets/Tweets";
 
 function App() {
-  const dispatch = useDispatch();
-  const { users } = useSelector(getUsers);
-
-  const handleClick = () => {
-    console.log("hi");
-  };
-  const handleLoadMore = () => {
-    axiosLink.defaults.params.page += 1;
-    dispatch(fetchUsers());
-  };
-
   return (
-    <div className={css.container}>
-      <button onClick={() => handleClick()}>Back to home page</button>
-      {users && <TwitCard />}
-      {users.length % axiosLink.defaults.params.page === 0 && (
-        <button onClick={handleLoadMore}>Load More</button>
-      )}
-    </div>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/tweets" element={<Tweets />} />
+      <Route path="/*" element={<Navigate to={"/"} />} />
+    </Routes>
   );
 }
 
