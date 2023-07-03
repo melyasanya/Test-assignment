@@ -6,3 +6,11 @@
   justify-content: center;
   align-items: center;
 }
+.homeBtn {
+  margin-bottom: 16px;
+}
+.twitCardList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 48px;
+}

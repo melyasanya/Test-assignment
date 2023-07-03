@@ -1,5 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { changeUser, fetchUsers } from "../../services/operations";
+import {
+  axiosLink,
+  changeUser,
+  fetchUsers,
+  fetchUsersToFilter,
+} from "../../services/operations";
 
 const initialState = {
   users: [],
@@ -8,6 +13,8 @@ const initialState = {
   error: null,
   pageNumber: 1,
   needToChangeUser: {},
+  filteredUsers: [],
+  filterValue: "",
 };
 
 const handlePending = (state) => {
@@ -23,8 +30,10 @@ const handleFetchFulfilled = (state, action) => {
 const handleChangeFulfilled = (state) => {
   state.isLoading = false;
   state.error = null;
+};
 
-  // state.users = action.payload;
+const handleFetchToFilterFulfilled = (state, action) => {
+  state.filteredUsers = action.payload;
 };
 
 const handleRejected = (state, action) => {
@@ -62,6 +71,14 @@ const usersSlice = createSlice({
     },
     emptyUsers(state) {
       state.users = [];
+      state.filteredUsers = [];
+      axiosLink.defaults.params.page = 1;
+    },
+    filterUsers(state, action) {
+      state.filteredUsers = action.payload;
+    },
+    changeFilterValue(state, action) {
+      state.filterValue = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -71,8 +88,16 @@ const usersSlice = createSlice({
     builder.addCase(changeUser.pending, handlePending);
     builder.addCase(changeUser.fulfilled, handleChangeFulfilled);
     builder.addCase(changeUser.rejected, handleRejected);
+    builder.addCase(fetchUsersToFilter.pending, handlePending);
+    builder.addCase(fetchUsersToFilter.fulfilled, handleFetchToFilterFulfilled);
+    builder.addCase(fetchUsersToFilter.rejected, handleRejected);
   },
 });
 
 export const usersReducer = usersSlice.reducer;
-export const { changeUserFollowers, emptyUsers } = usersSlice.actions;
+export const {
+  changeUserFollowers,
+  emptyUsers,
+  filterUsers,
+  changeFilterValue,
+} = usersSlice.actions;

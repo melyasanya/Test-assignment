@@ -7,7 +7,7 @@ export const Home = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(emptyUsers());
-  }, [dispatch]);
+  }, []);
 
   return (
     <>

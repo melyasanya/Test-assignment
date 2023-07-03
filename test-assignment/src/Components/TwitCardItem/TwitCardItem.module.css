@@ -1,0 +1,38 @@
+.bottomLine {
+  display: block;
+  width: 380px;
+  height: 8px;
+  background: #ebd8ff;
+  box-shadow: 0px 3.4369285106658936px 2.5776965618133545px 0px #fbf8ff inset,
+    0px 3.4369285106658936px 3.4369285106658936px 0px rgba(0, 0, 0, 0.06),
+    0px -1.7184642553329468px 3.4369285106658936px 0px #ae7be3 inset;
+}
+.avatarBorder {
+  width: 64px;
+  height: 64px;
+  border-radius: 62px;
+  object-fit: contain;
+}
+
+.div {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translate(150px, -36px);
+  background-image: url(../../images/Avatar_border.png);
+  background-position: top;
+}
+
+.lowerCard {
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  background: linear-gradient(142deg, #471ca9 0%, #5736a3 69.1%, #4b2a99 100%);
+  box-shadow: -2.5776965618133545px 6.873857021331787px 20.621572494506836px 0px
+    rgba(0, 0, 0, 0.23);
+  text-align: center;
+  padding-top: 62px;
+  padding-bottom: 36px;
+  width: 380px;
+}

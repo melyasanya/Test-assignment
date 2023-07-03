@@ -1,65 +1,52 @@
-import { LowerCard } from "../LowerCard/LowerCard";
-import { UpperCard } from "../UpperCard/UpperCard";
 import css from "./TwitCard.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getNeedToChange, getUsers } from "../../redux/selectors";
-import { FollowButton } from "../FollowButton/FollowButton";
+import {
+  getFilteredUsers,
+  getFilterValue,
+  getFollowingIds,
+  getUsers,
+} from "../../redux/selectors";
 
-import { changeUser, fetchUsers } from "../../services/operations";
-import { changeUserFollowers } from "../../redux/users/usersSlice";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { fetchUsers } from "../../services/operations";
 
-export const TwitCard = () => {
-  const [toChangeId, setToChangeId] = useState(0);
+import { useEffect, useLayoutEffect, useRef } from "react";
+import { TwitCardItem } from "../TwitCardItem/TwitCardItem";
+import { options } from "../Selector/SelectorOptions";
+import { changeFilterValue } from "../../redux/users/usersSlice";
+import {
+  useFilterFollowingUsers,
+  useFilterFollowUsers,
+} from "../../Funcs/FilterUsersFunc";
+
+export const TwitCard = ({ followUsers, followingUsers }) => {
+  const filteredUsers = useSelector(getFilteredUsers);
   const { users } = useSelector(getUsers);
   const dispatch = useDispatch();
-  const change = useSelector(getNeedToChange);
-  const countForFollow = useRef(null);
+  const filtValue = useSelector(getFilterValue);
   const firstUpdate = useRef(true);
+  const followingId = useSelector(getFollowingIds);
 
   useLayoutEffect(() => {
     if (firstUpdate.current) {
+      dispatch(changeFilterValue(options[0].value));
       dispatch(fetchUsers());
       firstUpdate.current = false;
       return;
     }
   });
+  useEffect(() => {}, []);
 
-  const handleFollowClick = (id) => {
-    dispatch(changeUserFollowers(id));
-    setToChangeId(id);
-    countForFollow.current = 1;
-  };
-  useEffect(() => {
-    countForFollow.current &&
-      dispatch(changeUser({ data: change, id: toChangeId }));
-  }, [change, dispatch, toChangeId]);
-
-  return (
-    <ul className={css.twitCardList}>
-      {users.map((user) => {
-        return (
-          <li key={user.id}>
-            <UpperCard />
-            <span className={css.bottomLine}>
-              <div className={css.div}>
-                <img
-                  src={user.avatar}
-                  alt="Avatar"
-                  className={css.avatarBorder}
-                />
-              </div>
-            </span>
-            <div className={css.lowerCard}>
-              <LowerCard tweets={user.tweets} follower={user.follower} />
-              <FollowButton
-                handleFollowClick={handleFollowClick}
-                id={user.id}
-              />
-            </div>
-          </li>
-        );
-      })}
-    </ul>
-  );
+  return filtValue === options[0].value
+    ? users.map((user) => {
+        return <TwitCardItem key={user.id} user={user} />;
+      })
+    : filtValue === options[1].value
+    ? followUsers.map((user) => {
+        return <TwitCardItem key={user.id} user={user} />;
+      })
+    : filtValue === options[2].value
+    ? followingUsers.map((user) => {
+        return <TwitCardItem key={user.id} user={user} />;
+      })
+    : "";
 };

@@ -38,6 +38,18 @@ export const changeUser = createAsyncThunk(
   }
 );
 
+export const fetchUsersToFilter = createAsyncThunk(
+  "users/fetchUsersToFilter",
+  async (_, thunkApi) => {
+    try {
+      const response = await axiosLink.get("/users");
+      return response.data;
+    } catch (e) {
+      return thunkApi.rejectWithValue(e.message);
+    }
+  }
+);
+
 // export const getPaginatedUser = createAsyncThunk(
 //     "users/getPaginatedUser",
 //     async (_, thunkAPI) => {
