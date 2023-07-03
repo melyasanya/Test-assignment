@@ -1,26 +1,27 @@
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
-import css from "./Tweets.module.css";
 import { TwitCard } from "../../Components/TwitCard/TwitCard";
 import {
-  getFilteredUsers,
   getFilterValue,
   getFollowingIds,
   getUsers,
 } from "../../redux/selectors";
 import { axiosLink, fetchUsers } from "../../services/operations";
-import { Link } from "react-router-dom";
 import { Selector } from "../../Components/Selector/Selector";
-import { useEffect, useState } from "react";
 import { compareUsers } from "../../Components/Selector/CompareFunc";
 import { options } from "../../Components/Selector/SelectorOptions";
 
+import css from "./Tweets.module.css";
+
 export const Tweets = () => {
   const dispatch = useDispatch();
+
   const { users } = useSelector(getUsers);
   const currentOptions = useSelector(getFilterValue);
-  const filteredUsers = useSelector(getFilteredUsers);
   const followingId = useSelector(getFollowingIds);
+
   const [followUsers, setFollowUsers] = useState([]);
   const [followingUsers, setFollowingUsers] = useState([]);
 
@@ -35,10 +36,6 @@ export const Tweets = () => {
       return;
     }
   }, [followingId, users, currentOptions]);
-
-  // useEffect(() => {
-  //   setFollowingUsers(users.filter((user) => user.includes(followingId)));
-  // }, [followingId, users]);
 
   const handleLoadMore = () => {
     axiosLink.defaults.params.page += 1;

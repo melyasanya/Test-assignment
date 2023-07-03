@@ -1,6 +1,8 @@
 import { useSelector } from "react-redux";
-import { getFollowingIds } from "../../redux/selectors";
 import PropTypes from "prop-types";
+
+import { getFollowingIds } from "../../redux/selectors";
+
 import css from "./FollowButton.module.css";
 
 export const FollowButton = ({ handleFollowClick, id }) => {

@@ -1,5 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { usersReducer } from "./users/usersSlice";
 import storage from "redux-persist/lib/storage";
 import persistReducer from "redux-persist/es/persistReducer";
 import persistStore from "redux-persist/es/persistStore";
@@ -11,6 +10,8 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
+
+import { usersReducer } from "./users/usersSlice";
 
 const persistConfig = {
   key: "auth",

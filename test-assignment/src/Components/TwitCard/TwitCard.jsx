@@ -1,30 +1,19 @@
-import css from "./TwitCard.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getFilteredUsers,
-  getFilterValue,
-  getFollowingIds,
-  getUsers,
-} from "../../redux/selectors";
+import { useEffect, useLayoutEffect, useRef } from "react";
 
 import { fetchUsers } from "../../services/operations";
-
-import { useEffect, useLayoutEffect, useRef } from "react";
+import { getFilterValue, getUsers } from "../../redux/selectors";
 import { TwitCardItem } from "../TwitCardItem/TwitCardItem";
 import { options } from "../Selector/SelectorOptions";
 import { changeFilterValue } from "../../redux/users/usersSlice";
-import {
-  useFilterFollowingUsers,
-  useFilterFollowUsers,
-} from "../../Funcs/FilterUsersFunc";
 
 export const TwitCard = ({ followUsers, followingUsers }) => {
-  const filteredUsers = useSelector(getFilteredUsers);
-  const { users } = useSelector(getUsers);
   const dispatch = useDispatch();
+
   const filtValue = useSelector(getFilterValue);
+  const { users } = useSelector(getUsers);
+
   const firstUpdate = useRef(true);
-  const followingId = useSelector(getFollowingIds);
 
   useLayoutEffect(() => {
     if (firstUpdate.current) {

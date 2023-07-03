@@ -1,4 +1,5 @@
 import logo from "../../images/Logo.png";
+
 import css from "./UpperCard.module.css";
 
 export const UpperCard = () => {
