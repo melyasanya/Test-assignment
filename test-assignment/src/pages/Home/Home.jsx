@@ -12,9 +12,10 @@ export const Home = () => {
   return (
     <>
       <h1>This is Home page</h1>
-      <button>
-        <Link to={"/tweets"}>Go to your tweets</Link>
-      </button>
+
+      <Link to={"/tweets"}>
+        <button>Go to your tweets</button>{" "}
+      </Link>
     </>
   );
 };

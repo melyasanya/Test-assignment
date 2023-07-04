@@ -48,9 +48,11 @@ export const Tweets = () => {
   return (
     <div className={css.container}>
       {load && <Loader />}
-      <button className={css.homeBtn}>
-        <Link to={"/"}>Back to home page</Link>
-      </button>
+
+      <Link to={"/"}>
+        <button className={css.homeBtn}>Back to home page</button>
+      </Link>
+
       {users && <Selector />}
       {users && (
         <ul className={css.twitCardList}>
