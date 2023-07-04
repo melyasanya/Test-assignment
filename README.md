@@ -1,6 +1,7 @@
 # Test-assignment
 This is a web resource, where you can see your tweets.
 On the home page you can see a button that transfers you to your tweets. 
+If you make a mistake in your search request, it will navigate you automatically to the home page.
 On the tweets page you can see users. Currently there are 14 of them. You can see the amount of their followers and tweets and their photo.
 You can click on Follow button and after that inner text changes to 'Following', color of the button changes and amount of their followers increases by 1. You can also unfollow them by clicking on the following button again. At that moment text changes back to following, color back to its usual color and amount of followers decreases by 1.
 At the begining you can see only 3 followers but you can press Load more button and 3 more users will load on the page and you can do that untill there are no more users to load.
