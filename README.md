@@ -7,6 +7,7 @@ You can click on Follow button and after that inner text changes to 'Following',
 At the begining you can see only 3 followers but you can press Load more button and 3 more users will load on the page and you can do that untill there are no more users to load.
 Also you can filter users by follow state.
 On the top of tweets page you can see selector. By default it's set to show you all users, but you can change it so you can see only users, that you are following or users that you can follow.
+If you decided to unfollow user during using of the selector, the user would disappear fom your screen and transfer automatically to other unfollowed users
 Also at the top of the page there is a button, that navigates us to home page.
 In addition to that I also decided to add two more features. First of the is loader, which you can see when you opens tweets page and when you load more users.
 Also I added a small notification which you can see in the top right side of the screen. It appears when you decide to follow or unfollow user.
