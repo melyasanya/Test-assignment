@@ -1,3 +1,5 @@
+import { Notify } from "notiflix/build/notiflix-notify-aio";
+
 import { axiosLink } from "../../services/operations";
 
 const reducers = {
@@ -10,6 +12,7 @@ const reducers = {
       state.users.map((user) => {
         if (user.id === action.payload) {
           user.follower -= 1;
+          Notify.failure("You unfollowed this user");
         }
       });
     } else {
@@ -17,6 +20,7 @@ const reducers = {
       state.users.map((user) => {
         if (user.id === action.payload) {
           user.follower += 1;
+          Notify.success("You are now following this user");
         }
       });
     }

@@ -11,6 +11,7 @@ export const handleFetchFulfilled = (state, action) => {
 export const handleChangeFulfilled = (state) => {
   state.isLoading = false;
   state.error = null;
+  state.needToChangeUser = {};
 };
 
 export const handleRejected = (state, action) => {

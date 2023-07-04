@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 
@@ -20,15 +20,18 @@ export const TwitCardItem = ({ user }) => {
 
   const countForFollow = useRef(null);
 
-  useEffect(() => {
-    countForFollow.current &&
+  useLayoutEffect(() => {
+    if (countForFollow.current) {
       dispatch(changeUser({ data: change, id: toChangeId }));
-  }, [change, dispatch, toChangeId]);
+      countForFollow.current = false;
+      return;
+    }
+  });
 
   const handleFollowClick = (id) => {
     dispatch(changeUserFollowers(id));
     setToChangeId(id);
-    countForFollow.current = 1;
+    countForFollow.current = true;
   };
 
   return (
