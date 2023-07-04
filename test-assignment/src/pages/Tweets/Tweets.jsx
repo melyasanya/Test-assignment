@@ -6,12 +6,14 @@ import { TwitCard } from "../../Components/TwitCard/TwitCard";
 import {
   getFilterValue,
   getFollowingIds,
+  getLoadingState,
   getUsers,
 } from "../../redux/selectors";
 import { axiosLink, fetchUsers } from "../../services/operations";
 import { Selector } from "../../Components/Selector/Selector";
 import { compareUsers } from "../../Components/Selector/CompareFunc";
 import { options } from "../../Components/Selector/SelectorOptions";
+import { Loader } from "../../Components/Loader/Loader";
 
 import css from "./Tweets.module.css";
 
@@ -21,6 +23,7 @@ export const Tweets = () => {
   const { users } = useSelector(getUsers);
   const currentOptions = useSelector(getFilterValue);
   const followingId = useSelector(getFollowingIds);
+  const load = useSelector(getLoadingState);
 
   const [followUsers, setFollowUsers] = useState([]);
   const [followingUsers, setFollowingUsers] = useState([]);
@@ -44,6 +47,7 @@ export const Tweets = () => {
 
   return (
     <div className={css.container}>
+      {load && <Loader />}
       <button className={css.homeBtn}>
         <Link to={"/"}>Back to home page</Link>
       </button>
